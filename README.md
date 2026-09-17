@@ -1,6 +1,10 @@
 <div align="center">
 
-<img src="assets/logo.svg" alt="Sub2API Logo" width="128" />
+<img src="assets/logo.svg" alt="空想云" width="128" />
+
+# 空想云（特别企业版）
+
+基于 [Sub2API](https://github.com/Wei-Shaw/sub2api) 的企业内部定制。默认中文，个人用户菜单已裁切，品牌为「空想云 / 特别企业版」。
 
 # Sub2API
 

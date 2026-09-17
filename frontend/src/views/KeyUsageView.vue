@@ -7,10 +7,12 @@
           <div class="h-10 w-10 overflow-hidden rounded-xl shadow-md">
             <img :src="siteLogo || '/logo.svg'" alt="Logo" class="h-full w-full object-contain" />
           </div>
-          <span class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">{{ siteName }}</span>
+          <span class="min-w-0">
+            <span class="block text-lg font-semibold leading-tight tracking-tight text-gray-900 dark:text-white">{{ siteName }}</span>
+            <span class="mt-0.5 block text-xs text-gray-500 dark:text-dark-400">特别企业版</span>
+          </span>
         </router-link>
         <div class="flex items-center gap-3">
-          <LocaleSwitcher />
           <a
             v-if="docUrl"
             :href="docUrl"
@@ -394,7 +396,7 @@
     <footer class="relative z-10 border-t border-gray-200/50 px-6 py-8 dark:border-dark-800/50">
       <div class="mx-auto flex max-w-6xl flex-col items-center justify-center gap-4 text-center sm:flex-row sm:text-left">
         <p class="text-sm text-gray-500 dark:text-dark-400">
-          &copy; {{ currentYear }} {{ siteName }}. {{ t('home.footer.allRightsReserved') }}
+          &copy; {{ currentYear }} {{ companyLegalName }}
         </p>
         <div class="flex items-center gap-4">
           <a
@@ -421,11 +423,11 @@ import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '@/stores'
 import { FeatureFlags, resolveFeatureFlag } from '@/utils/featureFlags'
-import LocaleSwitcher from '@/components/common/LocaleSwitcher.vue'
 import Icon from '@/components/icons/Icon.vue'
 import { buildGatewayUrl } from '@/api/client'
 import { formatDateLocalInput } from '@/utils/format'
 import { sanitizeUrl } from '@/utils/url'
+import { COMPANY_LEGAL_NAME } from '@/utils/branding'
 
 const { t, locale } = useI18n()
 const appStore = useAppStore()
@@ -433,7 +435,7 @@ const subscriptionFeatureEnabled = computed(() => resolveFeatureFlag(appStore.ca
 
 // ==================== Site Settings (same as HomeView) ====================
 
-const siteName = computed(() => appStore.cachedPublicSettings?.site_name || appStore.siteName || 'Sub2API')
+const siteName = computed(() => appStore.cachedPublicSettings?.site_name || appStore.siteName || '空想云')
 const siteLogo = computed(() => sanitizeUrl(appStore.cachedPublicSettings?.site_logo || appStore.siteLogo || '', { allowRelative: true, allowDataUrl: true }))
 const docUrl = computed(() => sanitizeUrl(appStore.cachedPublicSettings?.doc_url || appStore.docUrl || ''))
 const githubUrl = 'https://github.com/Wei-Shaw/sub2api'
@@ -448,6 +450,7 @@ function toggleTheme() {
   localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
 }
 
+const companyLegalName = COMPANY_LEGAL_NAME
 const currentYear = computed(() => new Date().getFullYear())
 
 // ==================== Key Query State ====================

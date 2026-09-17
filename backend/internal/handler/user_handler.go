@@ -161,6 +161,11 @@ func (h *UserHandler) ChangePassword(c *gin.Context) {
 // UpdateProfile handles updating user profile
 // PUT /api/v1/users/me
 func (h *UserHandler) UpdateProfile(c *gin.Context) {
+	role, _ := middleware2.GetUserRoleFromContext(c)
+	if role != service.RoleAdmin {
+		response.Forbidden(c, "This feature is disabled for personal users")
+		return
+	}
 	subject, ok := middleware2.GetAuthSubjectFromContext(c)
 	if !ok {
 		response.Unauthorized(c, "User not authenticated")

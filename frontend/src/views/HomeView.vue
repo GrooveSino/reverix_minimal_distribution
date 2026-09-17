@@ -26,10 +26,12 @@
             alt="Logo"
             class="h-9 w-9 shrink-0 rounded-lg object-contain"
           />
-          <span class="min-w-0 truncate text-base font-semibold">{{ siteName }}</span>
+          <span class="min-w-0">
+            <span class="block truncate text-base font-semibold leading-tight">{{ siteName }}</span>
+            <span class="mt-0.5 block truncate text-xs text-gray-500 dark:text-dark-400">{{ siteSubtitle }}</span>
+          </span>
         </div>
         <div class="flex max-w-full shrink-0 flex-wrap items-center justify-end gap-2">
-          <LocaleSwitcher />
           <a
             v-if="docUrl"
             :href="docUrl"
@@ -75,7 +77,7 @@
           class="mx-auto mb-6 h-20 w-20 rounded-2xl object-contain"
         />
         <h1 class="[overflow-wrap:anywhere] text-3xl font-bold md:text-4xl">{{ siteName }}</h1>
-        <p class="mt-4 whitespace-pre-wrap [overflow-wrap:anywhere] text-base text-gray-600 dark:text-dark-300">{{ siteSubtitle }}</p>
+        <p class="mt-2 text-sm text-gray-500 dark:text-dark-400">{{ siteSubtitle }}</p>
         <router-link
           :to="isAuthenticated ? dashboardPath : '/login'"
           class="mt-8 inline-flex min-h-10 items-center justify-center rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-700"
@@ -86,7 +88,7 @@
     </main>
 
     <footer class="min-w-0 border-t border-gray-200 px-4 py-5 text-center text-sm text-gray-500 [overflow-wrap:anywhere] sm:px-6 dark:border-dark-800 dark:text-dark-400">
-      &copy; {{ currentYear }} {{ siteName }}
+      &copy; {{ currentYear }} {{ companyLegalName }}
     </footer>
   </div>
 
@@ -118,17 +120,18 @@
     <header class="relative z-20 px-6 py-4">
       <nav class="mx-auto flex max-w-6xl items-center justify-between">
         <!-- Logo -->
-        <div class="flex items-center">
+        <div class="flex items-center gap-3">
           <div class="h-10 w-10 overflow-hidden rounded-xl shadow-md">
             <img :src="siteLogo || '/logo.svg'" alt="Logo" class="h-full w-full object-contain" />
+          </div>
+          <div class="min-w-0">
+            <div class="text-lg font-semibold leading-tight tracking-tight text-gray-900 dark:text-white">{{ siteName }}</div>
+            <div class="text-xs text-gray-500 dark:text-dark-400">{{ siteSubtitle }}</div>
           </div>
         </div>
 
         <!-- Nav Actions -->
         <div class="flex items-center gap-3">
-          <!-- Language Switcher -->
-          <LocaleSwitcher />
-
           <!-- Doc Link -->
           <a
             v-if="docUrl"
@@ -207,11 +210,11 @@
           <!-- Left: Text Content -->
           <div class="flex-1 text-center lg:text-left">
             <h1
-              class="mb-4 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"
+              class="mb-2 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"
             >
               {{ siteName }}
             </h1>
-            <p class="mb-8 text-lg text-gray-600 dark:text-dark-300 md:text-xl">
+            <p class="mb-8 text-sm text-gray-500 dark:text-dark-400 md:text-base">
               {{ siteSubtitle }}
             </p>
 
@@ -467,7 +470,7 @@
         class="mx-auto flex max-w-6xl flex-col items-center justify-center gap-4 text-center sm:flex-row sm:text-left"
       >
         <p class="text-sm text-gray-500 dark:text-dark-400">
-          &copy; {{ currentYear }} {{ siteName }}. {{ t('home.footer.allRightsReserved') }}
+          &copy; {{ currentYear }} {{ companyLegalName }}
         </p>
         <div class="flex items-center gap-4">
           <a
@@ -497,9 +500,9 @@
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore, useAppStore } from '@/stores'
-import LocaleSwitcher from '@/components/common/LocaleSwitcher.vue'
 import Icon from '@/components/icons/Icon.vue'
 import { sanitizeUrl } from '@/utils/url'
+import { COMPANY_LEGAL_NAME } from '@/utils/branding'
 import { FeatureFlags, isFeatureFlagEnabled } from '@/utils/featureFlags'
 
 const { t } = useI18n()
@@ -508,9 +511,9 @@ const authStore = useAuthStore()
 const appStore = useAppStore()
 
 // Site settings - directly from appStore (already initialized from injected config)
-const siteName = computed(() => appStore.cachedPublicSettings?.site_name || appStore.siteName || 'Sub2API')
+const siteName = computed(() => appStore.cachedPublicSettings?.site_name || appStore.siteName || '空想云')
 const siteLogo = computed(() => sanitizeUrl(appStore.cachedPublicSettings?.site_logo || appStore.siteLogo || '', { allowRelative: true, allowDataUrl: true }))
-const siteSubtitle = computed(() => appStore.cachedPublicSettings?.site_subtitle || 'AI API Gateway Platform')
+const siteSubtitle = computed(() => appStore.cachedPublicSettings?.site_subtitle || '特别企业版')
 const docUrl = computed(() => sanitizeUrl(appStore.cachedPublicSettings?.doc_url || appStore.docUrl || ''))
 const homeContent = computed(() => appStore.cachedPublicSettings?.home_content || '')
 const hasHomeContent = computed(() => homeContent.value.trim().length > 0)
@@ -546,6 +549,7 @@ const userInitial = computed(() => {
 })
 
 // Current year for footer
+const companyLegalName = COMPANY_LEGAL_NAME
 const currentYear = computed(() => new Date().getFullYear())
 
 // Toggle theme

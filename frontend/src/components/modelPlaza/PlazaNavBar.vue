@@ -11,8 +11,11 @@
           >
             <img :src="siteLogo || '/logo.svg'" alt="Logo" class="h-full w-full object-contain" />
           </span>
-          <span class="truncate text-base font-semibold text-gray-950 dark:text-white">
-            {{ siteName }}
+          <span class="min-w-0">
+            <span class="block truncate text-base font-semibold leading-tight text-gray-950 dark:text-white">
+              {{ siteName }}
+            </span>
+            <span class="mt-0.5 block truncate text-xs text-gray-500 dark:text-dark-400">特别企业版</span>
           </span>
         </template>
         <template v-else>
@@ -52,7 +55,7 @@ const appStore = useAppStore()
 const authStore = useAuthStore()
 
 const settings = computed(() => appStore.cachedPublicSettings)
-const siteName = computed(() => settings.value?.site_name || 'Sub2API')
+const siteName = computed(() => settings.value?.site_name || '空想云')
 const siteLogo = computed(() =>
   sanitizeUrl(settings.value?.site_logo || '', { allowRelative: true, allowDataUrl: true })
 )

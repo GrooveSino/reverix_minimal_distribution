@@ -1,5 +1,7 @@
 import { sanitizeUrl } from '@/utils/url'
 
+export const COMPANY_LEGAL_NAME = '空想云（广州）计算机技术有限公司'
+
 export function updateFavicon(logoUrl: string): void {
   const sanitizedLogoUrl = sanitizeUrl(logoUrl, {
     allowRelative: true,

@@ -24,8 +24,7 @@
         >
           {{ siteName }}
         </router-link>
-        <!-- Version Badge -->
-        <VersionBadge :version="siteVersion" />
+        <p class="mt-0.5 truncate text-xs leading-tight text-gray-500 dark:text-dark-400">特别企业版</p>
       </div>
     </div>
 
@@ -192,7 +191,6 @@ import { computed, h, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'v
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAdminSettingsStore, useAppStore, useAuthStore, useOnboardingStore } from '@/stores'
-import VersionBadge from '@/components/common/VersionBadge.vue'
 import Icon from '@/components/icons/Icon.vue'
 import { sanitizeSvg } from '@/utils/sanitize'
 import { sanitizeUrl } from '@/utils/url'
@@ -263,7 +261,6 @@ const groupExpandOverrides = ref<Map<string, boolean>>(new Map())
 // Site settings from appStore (cached, no flicker)
 const siteName = computed(() => appStore.siteName)
 const siteLogo = computed(() => sanitizeUrl(appStore.siteLogo || '', { allowRelative: true, allowDataUrl: true }))
-const siteVersion = computed(() => appStore.siteVersion)
 const settingsLoaded = computed(() => appStore.publicSettingsLoaded)
 
 // SVG Icon Components
@@ -690,6 +687,7 @@ const ChevronDownIcon = {
 // which handles the opt-in vs opt-out fallback when settings haven't loaded
 // yet. Admin-only flags (not in public settings) stay inline below.
 const flagChannelMonitor = makeSidebarFlag(FeatureFlags.channelMonitor)
+const flagModelPlaza = makeSidebarFlag(FeatureFlags.modelPlaza)
 const flagPayment = makeSidebarFlag(FeatureFlags.payment)
 const flagAvailableChannels = makeSidebarFlag(FeatureFlags.availableChannels)
 const flagSubscription = makeSidebarFlag(FeatureFlags.subscription)
@@ -721,6 +719,15 @@ function buildSelfNavItems(withDashboard: boolean): NavItem[] {
   const items: NavItem[] = []
   if (withDashboard) {
     items.push({ path: '/dashboard', label: t('nav.dashboard'), icon: DashboardIcon })
+  }
+  if (!authStore.isAdmin) {
+    items.push(
+      { path: '/keys', label: t('nav.apiKeys'), icon: KeyIcon },
+      { path: '/usage', label: t('nav.usage'), icon: ChartIcon },
+      { path: '/monitor', label: t('nav.channelStatus'), icon: SignalIcon, featureFlag: flagChannelMonitor },
+      { path: '/model-plaza', label: t('nav.modelPlaza'), icon: DashboardIcon, featureFlag: flagModelPlaza },
+    )
+    return items
   }
   items.push(
     { path: '/keys', label: t('nav.apiKeys'), icon: KeyIcon },
@@ -1011,6 +1018,7 @@ onBeforeUnmount(() => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  line-height: 1.2;
 }
 
 .sidebar-link-collapsed {

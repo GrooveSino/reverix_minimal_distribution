@@ -1,32 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
-  <title id="title">Sub2API</title>
-  <desc id="desc">An interlocking S symbol representing subscription routing into APIs.</desc>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 157.32 157.32">
   <defs>
-    <linearGradient id="s2a-bg" x1="72" y1="44" x2="442" y2="478" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#142B56"/>
-      <stop offset=".52" stop-color="#0A1A39"/>
-      <stop offset="1" stop-color="#061127"/>
-    </linearGradient>
-    <radialGradient id="s2a-ambient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(168 92) rotate(51) scale(342 382)">
-      <stop stop-color="#3E68B0" stop-opacity=".28"/>
-      <stop offset="1" stop-color="#3E68B0" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="s2a-brand" x1="4" y1="4" x2="20" y2="20" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#79F4BD"/>
-      <stop offset=".48" stop-color="#39D9E7"/>
-      <stop offset="1" stop-color="#3875F6"/>
-    </linearGradient>
-    <filter id="s2a-shadow" x="-25%" y="-25%" width="150%" height="165%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy=".55" stdDeviation=".65" flood-color="#020817" flood-opacity=".34"/>
-    </filter>
+    <style>
+      .cls-1 {
+        fill: #ed1c24;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
   </defs>
-
-  <rect x="16" y="16" width="480" height="480" rx="120" fill="url(#s2a-bg)"/>
-  <rect x="16" y="16" width="480" height="480" rx="120" fill="url(#s2a-ambient)"/>
-  <rect x="16.75" y="16.75" width="478.5" height="478.5" rx="119.25" fill="none" stroke="#A5BFFF" stroke-opacity=".16" stroke-width="1.5"/>
-
-  <g transform="translate(52 52) scale(17)" fill="none" stroke="url(#s2a-brand)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7" filter="url(#s2a-shadow)">
-    <path d="m19.25 7.65-2.55-3.2a1.33 1.33 0 0 0-1.03-.5H8.58c-.34 0-.67.13-.91.37L4.15 7.65c-.93.88-.6 1.52.65 2.3l9.55 5.97"/>
-    <path d="m4.75 16.35 2.55 3.2c.25.31.63.5 1.03.5h7.09c.34 0 .67-.13.91-.37l3.52-3.33c.93-.88.6-1.52-.65-2.3L9.65 8.08"/>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <rect class="cls-2" x="0" y="0" width="157.32" height="157.32" transform="translate(0 157.32) rotate(-90)"/>
+      <path class="cls-1" d="M61.04,31.94L12.25,127.82h37.96l35.71-70.04h6.42c7.76-.02,13.42,1.18,10.43,7.01-2.48,4.84-8.28,7.84-18.72,7.38h0s-8.27,16.64-12.63,24.81c1.21,10.14,1.48,20.7,2.69,30.84h39.81c-.49-12.94-2.98-26.93-3.47-39.86,22.13-8.54,33.22-21.25,34.55-34.93.97-9.95-7.16-21.51-34.07-21.09h-49.89Z"/>
+    </g>
   </g>
 </svg>

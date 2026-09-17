@@ -26,6 +26,7 @@ func RegisterPaymentRoutes(
 	authenticated := v1.Group("/payment")
 	authenticated.Use(gin.HandlerFunc(jwtAuth))
 	authenticated.Use(middleware.BackendModeUserGuard(settingService))
+	authenticated.Use(middleware.PersonalUserCutGuard())
 	// 面板全局按用户限流
 	authenticated.Use(panelRateLimiter.Global())
 	{

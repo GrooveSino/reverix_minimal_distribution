@@ -890,6 +890,24 @@ router.beforeEach(async (to, _from, next) => {
     return
   }
 
+  if (!authStore.isAdmin) {
+    const personalBlockedPrefixes = [
+      '/redeem',
+      '/subscriptions',
+      '/purchase',
+      '/orders',
+      '/affiliate',
+      '/available-channels',
+      '/batch-image',
+      '/custom/',
+      '/payment/'
+    ]
+    if (personalBlockedPrefixes.some((path) => to.path === path || to.path.startsWith(path))) {
+      next('/dashboard')
+      return
+    }
+  }
+
   if (requiresAdmin && authStore.isAdmin) {
     const adminComplianceStore = useAdminComplianceStore()
     if (!adminComplianceStore.initialized) {

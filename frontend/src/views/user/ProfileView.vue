@@ -4,47 +4,60 @@
       data-testid="profile-shell"
       class="mx-auto max-w-[950px] space-y-6"
     >
-      <ProfileInfoCard
-        :user="user"
-        :linuxdo-enabled="linuxdoOAuthEnabled"
-        :dingtalk-enabled="dingtalkOAuthEnabled"
-        :oidc-enabled="oidcOAuthEnabled"
-        :oidc-provider-name="oidcOAuthProviderName"
-        :wechat-enabled="wechatOAuthEnabled"
-        :wechat-open-enabled="wechatOAuthOpenEnabled"
-        :wechat-mp-enabled="wechatOAuthMPEnabled"
-      />
+      <template v-if="isAdmin">
+        <ProfileInfoCard
+          :user="user"
+          :linuxdo-enabled="linuxdoOAuthEnabled"
+          :dingtalk-enabled="dingtalkOAuthEnabled"
+          :oidc-enabled="oidcOAuthEnabled"
+          :oidc-provider-name="oidcOAuthProviderName"
+          :wechat-enabled="wechatOAuthEnabled"
+          :wechat-open-enabled="wechatOAuthOpenEnabled"
+          :wechat-mp-enabled="wechatOAuthMPEnabled"
+        />
 
-      <div
-        v-if="contactInfo"
-        class="card border-primary-200 bg-primary-50 p-6 dark:bg-primary-900/20"
-      >
-        <div class="flex items-center gap-4">
-          <div class="rounded-xl bg-primary-100 p-3 text-primary-600">
-            <Icon name="chat" size="lg" />
-          </div>
-          <div>
-            <h3 class="font-semibold text-primary-800 dark:text-primary-200">
-              {{ t('common.contactSupport') }}
-            </h3>
-            <p class="text-sm font-medium">{{ contactInfo }}</p>
+        <div
+          v-if="contactInfo"
+          class="card border-primary-200 bg-primary-50 p-6 dark:bg-primary-900/20"
+        >
+          <div class="flex items-center gap-4">
+            <div class="rounded-xl bg-primary-100 p-3 text-primary-600">
+              <Icon name="chat" size="lg" />
+            </div>
+            <div>
+              <h3 class="font-semibold text-primary-800 dark:text-primary-200">
+                {{ t('common.contactSupport') }}
+              </h3>
+              <p class="text-sm font-medium">{{ contactInfo }}</p>
+            </div>
           </div>
         </div>
+      </template>
+
+      <div v-else class="card p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+          {{ user?.email }}
+        </h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-dark-400">
+          {{ user?.username || t('profile.title') }}
+        </p>
       </div>
 
       <ProfilePasswordForm />
 
-      <ProfileBalanceNotifyCard
-        v-if="user && balanceLowNotifyEnabled"
-        :enabled="user.balance_notify_enabled ?? true"
-        :threshold="user.balance_notify_threshold"
-        :extra-emails="user.balance_notify_extra_emails ?? []"
-        :system-default-threshold="systemDefaultThreshold"
-        :user-email="user.email"
-      />
+      <template v-if="isAdmin">
+        <ProfileBalanceNotifyCard
+          v-if="user && balanceLowNotifyEnabled"
+          :enabled="user.balance_notify_enabled ?? true"
+          :threshold="user.balance_notify_threshold"
+          :extra-emails="user.balance_notify_extra_emails ?? []"
+          :system-default-threshold="systemDefaultThreshold"
+          :user-email="user.email"
+        />
 
-      <ProfileTotpCard />
-      <ProfilePasskeyCard :enabled="passkeyEnabled" />
+        <ProfileTotpCard />
+        <ProfilePasskeyCard :enabled="passkeyEnabled" />
+      </template>
     </div>
   </AppLayout>
 </template>
@@ -67,6 +80,7 @@ const { t } = useI18n()
 const appStore = useAppStore()
 const authStore = useAuthStore()
 const user = computed(() => authStore.user)
+const isAdmin = computed(() => authStore.isAdmin)
 
 const contactInfo = ref('')
 const balanceLowNotifyEnabled = ref(false)

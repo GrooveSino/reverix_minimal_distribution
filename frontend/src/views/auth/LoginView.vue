@@ -348,20 +348,9 @@ const authActionDisabled = computed(
   () => isLoading.value || passkeyLoading.value || !publicSettingsLoaded.value || agreementGateActive.value
 )
 
-const showPasskeyLogin = computed(
-  () => passkeyEnabled.value && typeof window.PublicKeyCredential !== 'undefined'
-)
+const showPasskeyLogin = computed(() => false)
 
-const showOAuthLogin = computed(
-  () =>
-    !backendModeEnabled.value &&
-    (linuxdoOAuthEnabled.value ||
-      dingtalkOAuthEnabled.value ||
-      wechatOAuthEnabled.value ||
-      oidcOAuthEnabled.value ||
-      githubOAuthEnabled.value ||
-      googleOAuthEnabled.value)
-)
+const showOAuthLogin = computed(() => false)
 
 watch(validationToastMessage, (value, previousValue) => {
   if (value && value !== previousValue) {

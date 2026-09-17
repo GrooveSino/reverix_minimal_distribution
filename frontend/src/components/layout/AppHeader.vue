@@ -48,11 +48,8 @@
           <span class="hidden sm:inline">{{ t('nav.modelPlaza') }}</span>
         </router-link>
 
-        <!-- Language Switcher -->
-        <LocaleSwitcher />
-
         <!-- Subscription Progress (for users with active subscriptions; not mounted at all when the feature is off) -->
-        <SubscriptionProgressMini v-if="user && subscriptionFeatureEnabled" />
+        <SubscriptionProgressMini v-if="user && subscriptionFeatureEnabled && authStore.isAdmin" />
 
         <!-- Balance Display -->
         <div
@@ -255,7 +252,6 @@ import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAppStore, useAuthStore, useOnboardingStore } from '@/stores'
 import { useAdminSettingsStore } from '@/stores/adminSettings'
-import LocaleSwitcher from '@/components/common/LocaleSwitcher.vue'
 import SubscriptionProgressMini from '@/components/common/SubscriptionProgressMini.vue'
 import AnnouncementBell from '@/components/common/AnnouncementBell.vue'
 import Icon from '@/components/icons/Icon.vue'
