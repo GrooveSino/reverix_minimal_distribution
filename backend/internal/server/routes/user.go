@@ -155,5 +155,12 @@ func RegisterUserRoutes(
 			monitorV2.GET("/errors", h.ChannelMonitorV2.Errors)
 			monitorV2.GET("/users", h.ChannelMonitorV2.Users)
 		}
+
+		quota := authenticated.Group("/quota")
+		quota.Use(middleware.QuotaOnly())
+		{
+			quota.GET("/users", h.Quota.ListUsers)
+			quota.POST("/users/:id/balance", h.Quota.UpdateBalance)
+		}
 	}
 }

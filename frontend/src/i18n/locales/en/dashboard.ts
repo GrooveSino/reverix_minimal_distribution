@@ -698,6 +698,24 @@ export default {
     }
   },
 
+  quotaUsers: {
+    title: 'User Credits',
+    description: 'Add or subtract balance for regular users',
+    searchPlaceholder: 'Search email or username',
+    email: 'Email',
+    username: 'Username',
+    balance: 'Balance',
+    add: 'Add',
+    subtract: 'Subtract',
+    empty: 'No regular users',
+    amount: 'Amount',
+    notes: 'Notes',
+    currentBalance: 'Current balance',
+    newBalance: 'New balance',
+    amountRequired: 'Please enter an amount',
+    insufficientBalance: 'Subtract amount cannot exceed current balance'
+  },
+
   affiliate: {
     title: 'Affiliate Rebates',
     description: 'Invite new users and convert your rebate quota into account balance',

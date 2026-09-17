@@ -702,6 +702,24 @@ export default {
     }
   },
 
+  quotaUsers: {
+    title: '用户额度',
+    description: '给普通用户充值或扣减余额',
+    searchPlaceholder: '搜索邮箱或用户名',
+    email: '邮箱',
+    username: '用户名',
+    balance: '余额',
+    add: '充值',
+    subtract: '扣减',
+    empty: '没有普通用户',
+    amount: '金额',
+    notes: '备注',
+    currentBalance: '当前余额',
+    newBalance: '调整后余额',
+    amountRequired: '请输入金额',
+    insufficientBalance: '扣减金额不能超过当前余额'
+  },
+
   affiliate: {
     title: '邀请返利',
     description: '邀请新用户注册，并将返利额度转入账户余额',

@@ -20,6 +20,12 @@ declare module 'vue-router' {
     requiresAdmin?: boolean
 
     /**
+     * Whether this route requires the quota operator role
+     * @default false
+     */
+    requiresQuota?: boolean
+
+    /**
      * Page title for this route
      */
     title?: string

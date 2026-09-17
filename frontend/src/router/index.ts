@@ -289,6 +289,19 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/quota-users',
+    name: 'QuotaUsers',
+    component: () => import('@/views/user/QuotaUsersView.vue'),
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: false,
+      requiresQuota: true,
+      title: 'User Credits',
+      titleKey: 'quotaUsers.title',
+      descriptionKey: 'quotaUsers.description'
+    }
+  },
+  {
     path: '/subscriptions',
     name: 'Subscriptions',
     component: () => import('@/views/user/SubscriptionsView.vue'),
@@ -886,6 +899,11 @@ router.beforeEach(async (to, _from, next) => {
   // Check admin requirement
   if (requiresAdmin && !authStore.isAdmin) {
     // User is authenticated but not admin, redirect to user dashboard
+    next('/dashboard')
+    return
+  }
+
+  if (to.meta.requiresQuota && !authStore.isQuotaAdmin && !authStore.isAdmin) {
     next('/dashboard')
     return
   }

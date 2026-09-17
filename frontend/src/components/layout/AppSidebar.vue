@@ -727,6 +727,9 @@ function buildSelfNavItems(withDashboard: boolean): NavItem[] {
       { path: '/monitor', label: t('nav.channelStatus'), icon: SignalIcon, featureFlag: flagChannelMonitor },
       { path: '/model-plaza', label: t('nav.modelPlaza'), icon: DashboardIcon, featureFlag: flagModelPlaza },
     )
+    if (authStore.isQuotaAdmin) {
+      items.push({ path: '/quota-users', label: t('nav.quotaUsers'), icon: KeyIcon })
+    }
     return items
   }
   items.push(
