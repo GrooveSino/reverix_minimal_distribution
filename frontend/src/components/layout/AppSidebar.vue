@@ -687,7 +687,6 @@ const ChevronDownIcon = {
 // which handles the opt-in vs opt-out fallback when settings haven't loaded
 // yet. Admin-only flags (not in public settings) stay inline below.
 const flagChannelMonitor = makeSidebarFlag(FeatureFlags.channelMonitor)
-const flagModelPlaza = makeSidebarFlag(FeatureFlags.modelPlaza)
 const flagPayment = makeSidebarFlag(FeatureFlags.payment)
 const flagAvailableChannels = makeSidebarFlag(FeatureFlags.availableChannels)
 const flagSubscription = makeSidebarFlag(FeatureFlags.subscription)
@@ -725,7 +724,6 @@ function buildSelfNavItems(withDashboard: boolean): NavItem[] {
       { path: '/keys', label: t('nav.apiKeys'), icon: KeyIcon },
       { path: '/usage', label: t('nav.usage'), icon: ChartIcon },
       { path: '/monitor', label: t('nav.channelStatus'), icon: SignalIcon, featureFlag: flagChannelMonitor },
-      { path: '/model-plaza', label: t('nav.modelPlaza'), icon: DashboardIcon, featureFlag: flagModelPlaza },
     )
     if (authStore.isQuotaAdmin) {
       items.push({ path: '/quota-users', label: t('nav.quotaUsers'), icon: KeyIcon })
