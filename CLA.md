@@ -1,73 +1,45 @@
-# Sub2API Individual Contributor License Agreement (v1.0)
+# 空想云特别企业版 个人贡献者许可协议（v1.0）
 
-Thank you for your interest in contributing to Sub2API ("the Project"). This Contributor License Agreement ("Agreement") documents the rights granted by contributors to the Project.
+感谢你为本发行版（「本项目」）做贡献。本协议说明贡献者授予项目的权利。
 
-By signing this Agreement, you accept and agree to the following terms and conditions for your present and future contributions submitted to the Project.
+签署本协议，即表示你接受以下条款，并适用于你现在和将来提交给本项目的贡献。
 
-## 1. Definitions
+## 1. 定义
 
-- **"You" (or "Your")** means the copyright owner or legal entity authorized by the copyright owner that is making this Agreement.
-- **"Contribution"** means any original work of authorship, including any modifications or additions to an existing work, that is intentionally submitted by You to the Project for inclusion in, or documentation of, any of the products owned or managed by the Project. For the purposes of this definition, "submitted" means any form of electronic, verbal, or written communication sent to the Project or its representatives, including but not limited to communication on electronic mailing lists, source code control systems, and issue tracking systems that are managed by, or on behalf of, the Project for the purpose of discussing and improving the Project, but excluding communication that is conspicuously marked or otherwise designated in writing by You as "Not a Contribution."
-- **"Project Owner"** means Wesley Liddick, or any individual or legal entity to whom Wesley Liddick has explicitly assigned or transferred ownership of the Project in writing, and their respective successors and assigns.
+- **「你」**：提交贡献的版权人或经版权人授权的法律实体。
+- **「贡献」**：你有意提交给本项目、用于纳入或记录本项目产品的原创作品，包括对已有作品的修改。提交方式包括邮件列表、代码仓库、议题系统等，但不包括你书面标明「不作为贡献」的内容。
+- **「项目所有者」**：空想云（广州）计算机技术有限公司及其书面指定的继受人。
 
-## 2. Grant of Copyright License
+## 2. 著作权许可
 
-Subject to the terms and conditions of this Agreement, You hereby grant to the Project Owner a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare derivative works of, publicly display, publicly perform, sublicense, and distribute Your Contributions and such derivative works. This license includes, without limitation, the right to sublicense, assign, and transfer these rights to any third party, including without limitation any successor, assignee, or acquiring entity of the Project or the Project Owner, and to use Your Contributions under any license, including proprietary or commercial licenses.
+在本协议条件下，你向项目所有者授予永久、全球、非独占、免费、不可撤销的著作权许可，以复制、修改、公开展示、公开表演、再许可和分发你的贡献及其衍生作品。该许可包括向第三方再许可、转让，以及在任何许可证（含专有或商业许可证）下使用你的贡献。
 
-## 3. Moral Rights
+## 3. 精神权利
 
-To the fullest extent permitted by applicable law, You irrevocably waive and agree not to assert any moral rights (including rights of attribution and integrity) that You may have in Your Contributions, and agree that the Project Owner and its licensees may use, modify, and distribute Your Contributions without attribution or other obligations arising from moral rights.
+在法律允许的最大范围内，你放弃并同意不主张对贡献的精神权利（包括署名权和保护作品完整权），并同意项目所有者及其被许可人可以不署名地使用、修改和分发你的贡献。
 
-## 4. Grant of Patent License
+## 4. 专利许可
 
-Subject to the terms and conditions of this Agreement, You hereby grant to the Project Owner a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable patent license to make, have made, use, offer to sell, sell, import, and otherwise transfer Your Contributions, where such license applies only to those patent claims licensable by You that are necessarily infringed by Your Contribution(s) alone or by combination of Your Contribution(s) with the Project to which such Contribution(s) was submitted.
+在本协议条件下，你向项目所有者授予永久、全球、非独占、免费、不可撤销的专利许可，以制造、使用、许诺销售、销售、进口和以其他方式转移你的贡献。该许可仅适用于你可授权、且因你的贡献本身或贡献与本项目结合而必然侵犯的专利权利要求。
 
-## 5. Representations and Warranties
+## 5. 陈述与保证
 
-You represent and warrant that:
+你陈述并保证：
 
-(a) You are legally entitled to grant the above licenses.
+(a) 你有权授予上述许可。
 
-(b) If Your employer(s) has rights to intellectual property that You create that includes Your Contributions, You have received permission to make Contributions on behalf of that employer, or that Your employer has waived such rights for Your Contributions to the Project.
+(b) 若雇主对你的贡献享有知识产权，你已获得提交许可，或雇主已放弃相关权利。
 
-(c) Each of Your Contributions is Your original creation, or You have sufficient rights to submit it under the terms of this Agreement. You agree to provide, upon request, reasonable documentation or explanation of any third-party materials included in Your Contributions.
+(c) 每项贡献均为你的原创，或你有足够权利按本协议提交。如包含第三方材料，你应在被要求时提供合理说明。
 
-## 6. No Warranty
+## 6. 无担保
 
-Your Contributions are provided on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied, including, without limitation, any warranties or conditions of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE. You are not expected to provide support for Your Contributions, except to the extent You desire to provide support.
+贡献按「现状」提供，不附带任何明示或默示担保，包括所有权、非侵权、适销性或特定用途适用性。你没有义务为贡献提供支持。
 
-## 7. No Obligation
+## 7. 无义务
 
-You understand that the decision to include Your Contribution in any product or project is entirely at the discretion of the Project Owner, and this Agreement does not obligate the Project Owner to use Your Contribution.
+项目所有者没有义务将你的贡献纳入本项目。
 
-## 8. Retention of Rights
+## 8. 适用法律
 
-You retain ownership of the copyright in Your Contributions. This Agreement does not transfer any copyright or other intellectual property rights from You to the Project Owner. This Agreement only grants the licenses described above.
-
-## 9. Term and Termination
-
-This Agreement shall remain in effect indefinitely. You may terminate this Agreement prospectively by providing written notice to the Project Owner, but such termination shall not affect the licenses granted for Contributions submitted prior to the effective date of termination. The licenses granted herein for Contributions submitted prior to termination are perpetual and irrevocable.
-
-## 10. Electronic Signature
-
-You agree that Your electronic signature (including but not limited to typing a specific phrase in a pull request, issue, or other electronic communication) is legally binding and has the same force and effect as a handwritten signature. You consent to the use of electronic means to enter into this Agreement and acknowledge that this Agreement is enforceable as if executed in a traditional written format.
-
-## 11. General Provisions
-
-**Entire Agreement.** This Agreement constitutes the entire agreement between You and the Project Owner with respect to Your Contributions and supersedes all prior or contemporaneous understandings regarding such subject matter.
-
-**Severability.** If any provision of this Agreement is held to be unenforceable or invalid, that provision will be enforced to the maximum extent possible and the remaining provisions will remain in full force and effect.
-
-**No Waiver.** The failure of the Project Owner to enforce any provision of this Agreement shall not constitute a waiver of that provision or any other provision.
-
-**Amendment.** This Agreement may only be modified by a written instrument signed by both parties. Modifications to this Agreement apply only to Contributions submitted after the modified Agreement is published and accepted by You. Prior Contributions remain governed by the version of the Agreement in effect at the time of submission.
-
-**Notification.** Notices under this Agreement shall be sent to the Project Owner via a GitHub issue on the Project repository. Notices are effective upon receipt.
-
----
-
-**By signing this CLA, you acknowledge that you have read and understood this Agreement and agree to be bound by its terms.**
-
-To sign, reply in the pull request with:
-
-> I have read the CLA Document and I hereby sign the CLA
+本协议适用中华人民共和国法律。
