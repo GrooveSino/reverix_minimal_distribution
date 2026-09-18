@@ -70,7 +70,7 @@ const draftRevision = ref<number | null>(null)
 const numericAmount = computed(() => Number(amount.value))
 const validAmount = computed(() => amount.value !== '' && Number.isFinite(numericAmount.value) && numericAmount.value <= 1e10 && (operation.value === 'add' ? numericAmount.value > 0 : numericAmount.value >= 0))
 const projectedRemaining = computed(() => (operation.value === 'add' ? (balance.value?.total_budget ?? 0) : 0) + numericAmount.value - (balance.value?.consumed ?? 0))
-const usd = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 8 }).format(value)
+const usd = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value)
 
 async function load() {
   if (loading.value || saving.value || disposed) return
