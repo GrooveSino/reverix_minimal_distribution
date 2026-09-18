@@ -1,6 +1,7 @@
 <template>
   <AppLayout>
     <div class="space-y-6">
+      <TeamBalanceCard admin />
       <!-- Loading State -->
       <div v-if="loading" class="flex items-center justify-center py-12">
         <LoadingSpinner />
@@ -341,6 +342,7 @@
 </template>
 
 <script setup lang="ts">
+import TeamBalanceCard from '@/components/common/TeamBalanceCard.vue'
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'

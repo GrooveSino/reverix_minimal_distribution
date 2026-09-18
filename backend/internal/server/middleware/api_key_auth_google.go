@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/Wei-Shaw/sub2api/internal/config"
+	pkgerrors "github.com/Wei-Shaw/sub2api/internal/pkg/errors"
 	"github.com/Wei-Shaw/sub2api/internal/pkg/googleapi"
 	"github.com/Wei-Shaw/sub2api/internal/pkg/ip"
 	"github.com/Wei-Shaw/sub2api/internal/service"
@@ -131,8 +132,17 @@ func APIKeyAuthWithSubscriptionGoogle(apiKeyService *service.APIKeyService, subs
 			return
 		}
 
+		if err := apiKeyService.CheckTeamBalance(c.Request.Context()); err != nil {
+			status := 403
+			if errors.Is(err, service.ErrBillingServiceUnavailable) {
+				status = 503
+			}
+			abortWithGoogleError(c, status, pkgerrors.Message(err))
+			return
+		}
+
 		// 简易模式：跳过余额和订阅检查
-		if cfg.RunMode == config.RunModeSimple {
+		if cfg.RunMode == config.RunModeSimple && !apiKeyService.TeamBalanceEnabled() {
 			c.Set(string(ContextKeyAPIKey), apiKey)
 			c.Set(string(ContextKeyUser), AuthSubject{
 				UserID:      apiKey.User.ID,
@@ -194,7 +204,7 @@ func APIKeyAuthWithSubscriptionGoogle(apiKeyService *service.APIKeyService, subs
 					errors.Is(err, service.ErrMonthlyLimitExceeded) {
 					status = 429
 				}
-				abortWithGoogleError(c, status, err.Error())
+				abortWithGoogleError(c, status, pkgerrors.Message(err))
 				return
 			}
 

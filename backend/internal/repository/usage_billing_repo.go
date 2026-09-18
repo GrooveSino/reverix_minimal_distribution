@@ -209,7 +209,9 @@ func (r *usageBillingRepository) applyUsageBillingEffects(ctx context.Context, t
 		result.QuotaState = quotaState
 	}
 
-	return nil
+	// Subscription quota and personal balance can represent the same charge.
+	// Charge the shared pool once, never their sum.
+	return consumeTeamBalance(ctx, tx, max(cmd.BalanceCost, cmd.SubscriptionCost))
 }
 
 func incrementUsageBillingSubscription(ctx context.Context, tx *sql.Tx, subscriptionID int64, costUSD float64) error {
@@ -318,6 +320,9 @@ func captureUsageBillingBatchImageBalance(ctx context.Context, tx *sql.Tx, cmd *
 		RETURNING balance, frozen_balance
 	`, cmd.HoldAmount, cmd.ActualAmount, cmd.UserID).Scan(&balance, &frozen)
 	if err == nil {
+		if err := consumeTeamBalance(ctx, tx, cmd.ActualAmount); err != nil {
+			return nil, err
+		}
 		return &service.BatchImageBalanceHoldResult{NewBalance: &balance, FrozenBalance: &frozen}, nil
 	}
 	if !errors.Is(err, sql.ErrNoRows) {

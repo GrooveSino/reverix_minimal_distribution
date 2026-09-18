@@ -104,6 +104,7 @@ type subscriptionCacheInvalidationPubSub interface {
 // BillingCacheService 计费缓存服务
 // 负责余额和订阅数据的缓存管理，提供高性能的计费资格检查
 type BillingCacheService struct {
+	teamBalance           *TeamBalanceService
 	cache                 BillingCache
 	userRepo              UserRepository
 	subRepo               UserSubscriptionRepository
@@ -733,8 +734,13 @@ func (s *BillingCacheService) IncrementUserPlatformQuotaUsage(userID int64, plat
 // 订阅模式：检查缓存用量未超过限额（Group限额从参数传入）
 // platform 为请求的目标平台（如 "anthropic"），传空串 "" 时跳过 user × platform quota 检查。
 func (s *BillingCacheService) CheckBillingEligibility(ctx context.Context, user *User, apiKey *APIKey, group *Group, subscription *UserSubscription, platform string) error {
-	// 简易模式：跳过所有计费检查
-	if s.cfg.RunMode == config.RunModeSimple {
+	if s.teamBalance != nil {
+		if err := s.teamBalance.Check(ctx); err != nil {
+			return err
+		}
+	}
+	// 简易模式：跳过个人计费检查
+	if s.cfg.RunMode == config.RunModeSimple && s.teamBalance == nil {
 		return nil
 	}
 	if s.circuitBreaker != nil && !s.circuitBreaker.Allow() {
@@ -748,7 +754,8 @@ func (s *BillingCacheService) CheckBillingEligibility(ctx context.Context, user 
 		if err := s.checkSubscriptionEligibility(ctx, user.ID, group, subscription); err != nil {
 			return err
 		}
-	} else {
+	}
+	if !isSubscriptionMode || s.teamBalance != nil {
 		if err := s.checkBalanceEligibility(ctx, user.ID); err != nil {
 			return err
 		}
