@@ -34,6 +34,11 @@ func RegisterAdminRoutes(
 		// 部署与运营合规确认
 		registerAdminComplianceRoutes(admin, h)
 
+		if h.TeamBalance != nil {
+			admin.GET("/team-balance", h.TeamBalance.Get)
+			admin.POST("/team-balance", h.TeamBalance.Adjust)
+		}
+
 		// 仪表盘
 		registerDashboardRoutes(admin, h)
 

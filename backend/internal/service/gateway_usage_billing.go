@@ -337,6 +337,19 @@ func applyUsageBilling(ctx context.Context, requestID string, usageLog *UsageLog
 	}
 
 	cmd := buildUsageBillingCommand(requestID, usageLog, p)
+	if deps.billingCacheService != nil && deps.billingCacheService.teamBalance != nil {
+		// The team edition always debits the personal wallet as well, even if
+		// the original group uses subscription quotas. Never fall back to a
+		// non-transactional debit that would omit the team pool.
+		if cmd == nil || cmd.RequestID == "" || repo == nil {
+			return false, ErrBillingServiceUnavailable
+		}
+		if cmd.SubscriptionCost > 0 {
+			cmd.BalanceCost = cmd.SubscriptionCost
+			cmd.RequestFingerprint = ""
+			cmd.Normalize()
+		}
+	}
 	if cmd == nil || cmd.RequestID == "" || repo == nil {
 		postUsageBilling(ctx, p, deps)
 		return true, nil
@@ -374,7 +387,8 @@ func finalizePostUsageBilling(ctx context.Context, p *postUsageBillingParams, de
 		if p.Cost.ActualCost > 0 && p.User != nil && p.APIKey != nil && p.APIKey.GroupID != nil {
 			deps.billingCacheService.QueueUpdateSubscriptionUsage(p.User.ID, *p.APIKey.GroupID, p.Cost.ActualCost)
 		}
-	} else if p.Cost.ActualCost > 0 && p.User != nil {
+	}
+	if p.Cost.ActualCost > 0 && p.User != nil && (!p.IsSubscriptionBill || (deps.billingCacheService != nil && deps.billingCacheService.teamBalance != nil)) {
 		syncBalanceCacheAfterDeduction(ctx, p, deps, result)
 	}
 
@@ -835,7 +849,7 @@ func (s *GatewayService) recordUsageCore(ctx context.Context, input *recordUsage
 		)
 	}
 
-	if s.cfg != nil && s.cfg.RunMode == config.RunModeSimple {
+	if s.cfg != nil && s.cfg.RunMode == config.RunModeSimple && (s.billingCacheService == nil || s.billingCacheService.teamBalance == nil) {
 		writeUsageLogBestEffort(ctx, s.usageLogRepo, usageLog, "service.gateway")
 		logger.LegacyPrintf("service.gateway", "[SIMPLE MODE] Usage recorded (not billed): user=%d, tokens=%d", usageLog.UserID, usageLog.TotalTokens())
 		s.deferredService.ScheduleLastUsedUpdate(account.ID)

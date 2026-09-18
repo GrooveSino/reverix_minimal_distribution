@@ -9,6 +9,7 @@ import (
 
 	"github.com/Wei-Shaw/sub2api/internal/config"
 	"github.com/Wei-Shaw/sub2api/internal/pkg/ctxkey"
+	pkgerrors "github.com/Wei-Shaw/sub2api/internal/pkg/errors"
 	"github.com/Wei-Shaw/sub2api/internal/pkg/ip"
 	"github.com/Wei-Shaw/sub2api/internal/service"
 
@@ -171,9 +172,22 @@ func apiKeyAuthWithSubscription(apiKeyService *service.APIKeyService, subscripti
 		// generation consumes the key's remaining balance.
 		skipBilling := c.Request.URL.Path == "/v1/usage" || billingInfoRequest || isAsyncImageTaskRead(c.Request.Method, c.Request.URL.Path)
 
+		if !skipBilling {
+			if err := apiKeyService.CheckTeamBalance(c.Request.Context()); err != nil {
+				status := http.StatusForbidden
+				code := "TEAM_BALANCE_EXHAUSTED"
+				if errors.Is(err, service.ErrBillingServiceUnavailable) {
+					status = http.StatusServiceUnavailable
+					code = "BILLING_SERVICE_ERROR"
+				}
+				c.AbortWithStatusJSON(status, gin.H{"error": gin.H{"type": "billing_error", "code": code, "message": pkgerrors.Message(err)}})
+				return
+			}
+		}
+
 		// ── 4. SimpleMode → early return ─────────────────────────────
 
-		if cfg.RunMode == config.RunModeSimple {
+		if cfg.RunMode == config.RunModeSimple && !apiKeyService.TeamBalanceEnabled() {
 			c.Set(string(ContextKeyAPIKey), apiKey)
 			c.Set(string(ContextKeyUser), AuthSubject{
 				UserID:      apiKey.User.ID,

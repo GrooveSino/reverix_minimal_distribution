@@ -29,6 +29,9 @@ func RegisterUserRoutes(
 		// 用户接口
 		user := authenticated.Group("/user")
 		{
+			if h.TeamBalance != nil {
+				user.GET("/team-balance", h.TeamBalance.Get)
+			}
 			user.GET("/profile", h.User.GetProfile)
 			user.PUT("/password", h.User.ChangePassword)
 			user.PUT("", h.User.UpdateProfile)
